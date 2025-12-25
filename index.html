@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameDev Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0f1419;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1a2332 0%, #0f1419 100%);
+            padding: 20px 0;
+            border-bottom: 2px solid #2a3a52;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .lang-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #2a3a52;
+            color: #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .lang-btn.active {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border-color: #6a11cb;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: radial-gradient(circle at top, #1a2332 0%, #0f1419 100%);
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #b0b0b0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(106, 17, 203, 0.5);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+        
+        /* Games Section */
+        .games-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .game-card {
+            background: #1a2332;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid #2a3a52;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .game-image {
+            height: 200px;
+            background: linear-gradient(135deg, #2a3a52, #1a2332);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+        
+        .game-content {
+            padding: 25px;
+        }
+        
+        .game-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .game-description {
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+        
+        .game-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        
+        .game-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Employees Section */
+        .employees-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .employee-card {
+            background: #1a2332;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid #2a3a52;
+        }
+        
+        .employee-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .employee-card.director {
+            background: linear-gradient(135deg, #1a2332 0%, #2a3a52 100%);
+            border: 1px solid #6a11cb;
+        }
+        
+        .employee-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+        }
+        
+        .employee-name {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        
+        .employee-position {
+            color: #b0b0b0;
+            font-size: 16px;
+        }
+        
+        /* Career Section */
+        .career-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #1a2332;
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid #2a3a52;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #2a3a52;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #6a11cb;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+        
+        /* Footer */
+        footer {
+            background: #1a2332;
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid #2a3a52;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .copyright {
+            color: #b0b0b0;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 30px;
+            }
+            
+            .games-container, .employees-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">GD</div>
+                    <div class="logo-text">GameDev Studio</div>
+                </div>
+                <div class="language-switcher">
+                    <button class="lang-btn active" id="lang-ru">Русский</button>
+                    <button class="lang-btn" id="lang-en">English</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1 id="hero-title">Создаём игры, которые вдохновляют</h1>
+            <p id="hero-text">Мы - команда passionate разработчиков, создающая уникальные игровые миры и захватывающие игровые механики.</p>
+            <a href="#career" class="cta-button" id="hero-cta">Присоединиться к нам</a>
+        </div>
+    </section>
+
+    <section id="games">
+        <div class="container">
+            <h2 class="section-title" id="games-title">Наши игры</h2>
+            <div class="games-container">
+                <div class="game-card">
+                    <div class="game-image">🔫</div>
+                    <div class="game-content">
+                        <h3 class="game-title" id="game1-title">Gunpank</h3>
+                        <p class="game-description" id="game1-desc">Мир, где царствует оружие и порох. Выживи в жестоком постапокалиптическом мире.</p>
+                        <a href="#" class="game-link" id="game1-link">Подробнее</a>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-image">🚂</div>
+                    <div class="game-content">
+                        <h3 class="game-title" id="game2-title">Train</h3>
+                        <p class="game-description" id="game2-desc">Загадочное путешествие на поезде через неизведанные земли. Что ждет в конце пути?</p>
+                        <a href="#" class="game-link" id="game2-link">Подробнее</a>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-image">🧟</div>
+                    <div class="game-content">
+                        <h3 class="game-title" id="game3-title">Inside</h3>
+                        <p class="game-description" id="game3-desc">Мертвый город, зараженный вирусом. Выживи и найди источник заражения.</p>
+                        <a href="#" class="game-link" id="game3-link">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="employees">
+        <div class="container">
+            <h2 class="section-title" id="employees-title">Наша команда</h2>
+            <div class="employees-container">
+                <div class="employee-card director">
+                    <div class="employee-avatar">НТ</div>
+                    <h3 class="employee-name">Небежев Тембулат Маратович</h3>
+                    <p class="employee-position" id="director-position">Директор студии</p>
+                </div>
+                
+                <div class="employee-card">
+                    <div class="employee-avatar">С1</div>
+                    <h3 class="employee-name">Сотрудник 1</h3>
+                    <p class="employee-position" id="employee1-position">Ведущий программист</p>
+                </div>
+                
+                <div class="employee-card">
+                    <div class="employee-avatar">С2</div>
+                    <h3 class="employee-name">Сотрудник 2</h3>
+                    <p class="employee-position" id="employee2-position">Геймдизайнер</p>
+                </div>
+                
+                <div class="employee-card">
+                    <div class="employee-avatar">С3</div>
+                    <h3 class="employee-name">Сотрудник 3</h3>
+                    <p class="employee-position" id="employee3-position">Художник</p>
+                </div>
+                
+                <div class="employee-card">
+                    <div class="employee-avatar">С4</div>
+                    <h3 class="employee-name">Сотрудник 4</h3>
+                    <p class="employee-position" id="employee4-position">3D-моделлер</p>
+                </div>
+                
+                <div class="employee-card">
+                    <div class="employee-avatar">С5</div>
+                    <h3 class="employee-name">Сотрудник 5</h3>
+                    <p class="employee-position" id="employee5-position">Звукорежиссер</p>
+                </div>
+                
+                <div class="employee-card">
+                    <div class="employee-avatar">С6</div>
+                    <h3 class="employee-name">Сотрудник 6</h3>
+                    <p class="employee-position" id="employee6-position">Тестировщик</p>
+                </div>
+                
+                <div class="employee-card">
+                    <div class="employee-avatar">С7</div>
+                    <h3 class="employee-name">Сотрудник 7</h3>
+                    <p class="employee-position" id="employee7-position">Маркетолог</p>
+                </div>
+                
+                <div class="employee-card">
+                    <div class="employee-avatar">С8</div>
+                    <h3 class="employee-name">Сотрудник 8</h3>
+                    <p class="employee-position" id="employee8-position">Продюсер</p>
+                </div>
+                
+                <div class="employee-card">
+                    <div class="employee-avatar">С9</div>
+                    <h3 class="employee-name">Сотрудник 9</h3>
+                    <p class="employee-position" id="employee9-position">Технический писатель</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="career">
+        <div class="container">
+            <h2 class="section-title" id="career-title">Трудоустройство</h2>
+            <form class="career-form">
+                <div class="form-group">
+                    <label for="fullname" id="fullname-label">ФИО:</label>
+                    <input type="text" id="fullname" name="fullname" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" id="email-label">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="position" id="position-label">Должность:</label>
+                    <select id="position" name="position" required>
+                        <option value="" id="position-default">Выберите должность</option>
+                        <option value="designer" id="position-designer">Дизайнер</option>
+                        <option value="game-designer" id="position-game-designer">Геймдизайнер</option>
+                        <option value="engine-programmer" id="position-engine-programmer">Программист движка</option>
+                        <option value="tester" id="position-tester">Тестировщик</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submit-btn">Отправить заявку</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="copyright" id="copyright">© 2023 GameDev Studio. Все права защищены.</div>
+                <div class="social-links">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">📺</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language data
+        const translations = {
+            ru: {
+                // Header
+                "hero-title": "Создаём игры, которые вдохновляют",
+                "hero-text": "Мы - команда passionate разработчиков, создающая уникальные игровые миры и захватывающие игровые механики.",
+                "hero-cta": "Присоединиться к нам",
+                
+                // Games section
+                "games-title": "Наши игры",
+                "game1-title": "Gunpank",
+                "game1-desc": "Мир, где царствует оружие и порох. Выживи в жестоком постапокалиптическом мире.",
+                "game1-link": "Подробнее",
+                "game2-title": "Train",
+                "game2-desc": "Загадочное путешествие на поезде через неизведанные земли. Что ждет в конце пути?",
+                "game2-link": "Подробнее",
+                "game3-title": "Inside",
+                "game3-desc": "Мертвый город, зараженный вирусом. Выживи и найди источник заражения.",
+                "game3-link": "Подробнее",
+                
+                // Employees section
+                "employees-title": "Наша команда",
+                "director-position": "Директор студии",
+                "employee1-position": "Ведущий программист",
+                "employee2-position": "Геймдизайнер",
+                "employee3-position": "Художник",
+                "employee4-position": "3D-моделлер",
+                "employee5-position": "Звукорежиссер",
+                "employee6-position": "Тестировщик",
+                "employee7-position": "Маркетолог",
+                "employee8-position": "Продюсер",
+                "employee9-position": "Технический писатель",
+                
+                // Career section
+                "career-title": "Трудоустройство",
+                "fullname-label": "ФИО:",
+                "email-label": "Email:",
+                "position-label": "Должность:",
+                "position-default": "Выберите должность",
+                "position-designer": "Дизайнер",
+                "position-game-designer": "Геймдизайнер",
+                "position-engine-programmer": "Программист движка",
+                "position-tester": "Тестировщик",
+                "submit-btn": "Отправить заявку",
+                
+                // Footer
+                "copyright": "© 2023 GameDev Studio. Все права защищены."
+            },
+            en: {
+                // Header
+                "hero-title": "Creating Games That Inspire",
+                "hero-text": "We are a team of passionate developers creating unique game worlds and engaging game mechanics.",
+                "hero-cta": "Join Our Team",
+                
+                // Games section
+                "games-title": "Our Games",
+                "game1-title": "Gunpank",
+                "game1-desc": "A world ruled by weapons and gunpowder. Survive in a brutal post-apocalyptic world.",
+                "game1-link": "Learn More",
+                "game2-title": "Train",
+                "game2-desc": "A mysterious train journey through uncharted lands. What awaits at the end of the path?",
+                "game2-link": "Learn More",
+                "game3-title": "Inside",
+                "game3-desc": "A dead city infected with a virus. Survive and find the source of infection.",
+                "game3-link": "Learn More",
+                
+                // Employees section
+                "employees-title": "Our Team",
+                "director-position": "Studio Director",
+                "employee1-position": "Lead Programmer",
+                "employee2-position": "Game Designer",
+                "employee3-position": "Artist",
+                "employee4-position": "3D Modeler",
+                "employee5-position": "Sound Engineer",
+                "employee6-position": "Tester",
+                "employee7-position": "Marketer",
+                "employee8-position": "Producer",
+                "employee9-position": "Technical Writer",
+                
+                // Career section
+                "career-title": "Careers",
+                "fullname-label": "Full Name:",
+                "email-label": "Email:",
+                "position-label": "Position:",
+                "position-default": "Select a position",
+                "position-designer": "Designer",
+                "position-game-designer": "Game Designer",
+                "position-engine-programmer": "Engine Programmer",
+                "position-tester": "Tester",
+                "submit-btn": "Submit Application",
+                
+                // Footer
+                "copyright": "© 2023 GameDev Studio. All rights reserved."
+            }
+        };
+
+        // Language switching functionality
+        const langRuBtn = document.getElementById('lang-ru');
+        const langEnBtn = document.getElementById('lang-en');
+        
+        function switchLanguage(lang) {
+            // Update active button
+            if (lang === 'ru') {
+                langRuBtn.classList.add('active');
+                langEnBtn.classList.remove('active');
+            } else {
+                langEnBtn.classList.add('active');
+                langRuBtn.classList.remove('active');
+            }
+            
+            // Update all text elements
+            for (const [key, value] of Object.entries(translations[lang])) {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = value;
+                }
+            }
+        }
+        
+        // Event listeners for language buttons
+        langRuBtn.addEventListener('click', () => switchLanguage('ru'));
+        langEnBtn.addEventListener('click', () => switchLanguage('en'));
+        
+        // Initialize with Russian language
+        switchLanguage('ru');
+    </script>
+</body>
+</html>
